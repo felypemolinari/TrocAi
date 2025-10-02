@@ -7,6 +7,8 @@ dotenv.config();
 
 const serviceRoutes = require('./Routes/ServiceRoutes');
 
+const authRoutes = require('./Routes/auth/AuthRoutes');
+
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -21,6 +23,8 @@ mongoose.connect(process.env.MONGO_URI)
 
 // rotas da API
 app.use('/api/services', serviceRoutes);
+
+app.use('/api/auth', authRoutes);
 
 // inicia o servidor
 app.listen(PORT, () => {
