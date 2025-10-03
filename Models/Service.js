@@ -1,18 +1,21 @@
 const mongoose = require('mongoose');
 
 const serviceSchema = new mongoose.Schema({
-  title: {
+  servico: {
     type: String,
     required: true,
     trim: true
   },
-  description: {
+  descricao: {
     type: String,
     required: true
   },
-  // posso adicionar mais campos aqui
+  usuario: {
+    type: String,
+    required: true
+  }
 }, {
-  timestamps: true // adiciona automaticamente campos 'createdAt' e 'updatedAt'
+  timestamps: true
 });
 
 const Service = mongoose.model('Service', serviceSchema);

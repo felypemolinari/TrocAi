@@ -2,8 +2,13 @@ const Service = require('../Models/Service');
 
 // criar um novo serviço
 exports.createService = async (req, res) => {
+  const { servico, descricao, usuario } = req.body;
   try {
-    const newService = new Service(req.body);
+    const newService = new Service({
+      servico,
+      descricao,
+      usuario
+    });
     const savedService = await newService.save();
     res.status(201).json(savedService);
   } catch (err) {
