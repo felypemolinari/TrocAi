@@ -1,4 +1,5 @@
 const Service = require('../Models/Service');
+const User = require('../Models/User');
 
 // criar um novo serviço
 exports.createService = async (req, res) => {
@@ -18,13 +19,27 @@ exports.createService = async (req, res) => {
 
 // obter todos os serviços
 exports.getServices = async (req, res) => {
-  try {
-    const services = await Service.find();
-    res.status(200).json(services);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
+    try {
+        const services = await Service.find().populate({
+            path: 'usuario',
+            select: 'name' // Seleciona apenas o campo 'name' da coleção 'User'
+        });
+        res.status(200).json(services);
+    } catch (err) {
+        console.error('Erro na função getServices:', err);
+        res.status(500).json({ error: 'Erro ao carregar serviços.' });
+    }
 };
+
+// funcao antiga
+// exports.getServices = async (req, res) => {
+//   try {
+//     const services = await Service.find();
+//     res.status(200).json(services);
+//   } catch (err) {
+//     res.status(500).json({ error: err.message });
+//   }
+// };
 
 // obter um serviço por ID
 exports.getServiceById = async (req, res) => {
