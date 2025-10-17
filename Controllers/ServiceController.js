@@ -44,7 +44,8 @@ exports.getServices = async (req, res) => {
 // obter um serviço por ID
 exports.getServiceById = async (req, res) => {
   try {
-    const service = await Service.findById(req.params.id);
+    const serviceId = req.params.id;
+    const service = await Service.findById(serviceId).populate('usuario', 'name');
     if (!service) {
       return res.status(404).json({ message: 'Serviço não encontrado' });
     }
